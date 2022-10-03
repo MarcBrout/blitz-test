@@ -7,4 +7,5 @@ data class UserDTO(
     @SerializedName("username") val username: String,
     @SerializedName("name") val name: String,
     @SerializedName("bio") val bio: String?,
+    @SerializedName("profile_image") val profileImage: ProfileImageSizesDTO,
 )

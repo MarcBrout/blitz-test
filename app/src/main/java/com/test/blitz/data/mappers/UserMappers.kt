@@ -8,4 +8,5 @@ fun UserDTO.toUser() = User(
     username = username,
     name = name,
     bio = bio,
+    profileImage = profileImage.toProfileImage(),
 )

@@ -35,8 +35,8 @@ fun BoxScope.HomeScreen(
                     start = dimensionResource(id = R.dimen.margin_large),
                 )
                 .fillMaxWidth(),
-            text = "Unsplash Explorer",
-            style = Typography.h4,
+            text = "Explore the world",
+            style = Typography.h5,
             textAlign = TextAlign.Start,
         )
 
