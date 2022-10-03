@@ -60,7 +60,7 @@ class PhotoViewModel @Inject constructor(
             sendEvent(PhotoUiEvent.UserPhotosLoading(true))
             resource({ getUserPhotos(id) }) {
                 onSuccess { photos ->
-                    sendEvent(PhotoUiEvent.UserPhotos(photos))
+                    sendEvent(PhotoUiEvent.UserPhotos(photos.filter { it.id != photoId }))
                 }
                 onError { error ->
 
@@ -81,7 +81,7 @@ class PhotoViewModel @Inject constructor(
                     sendEvent(PhotoUiEvent.PhotoStatistics(statistics))
                 }
                 onError { error ->
-
+                    Log.e("PhotoViewModel", "Error loading photo statistics", error)
                     sendEvent(PhotoUiEvent.Error(error))
                 }
                 onComplete {

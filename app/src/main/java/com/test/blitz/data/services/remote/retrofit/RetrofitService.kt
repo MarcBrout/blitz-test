@@ -21,7 +21,7 @@ interface RetrofitService : RemoteService {
 
     @Headers("Authorization: Client-ID $apiKey")
     @GET("photos/{id}/statistics")
-    override suspend fun getPhotoStatistics(id: String): StatisticsDTO
+    override suspend fun getPhotoStatistics(@Path("id") id: String): StatisticsDTO
 
     @Headers("Authorization: Client-ID $apiKey")
     @GET("photos/{id}")
