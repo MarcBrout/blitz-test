@@ -64,6 +64,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
     implementation("com.google.dagger:hilt-android:2.44")
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -72,6 +73,9 @@ dependencies {
 
     def nav_version = "2.5.2"
     implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    implementation "com.airbnb.android:lottie-compose:5.0.2"
+
 }
 
 kapt {
