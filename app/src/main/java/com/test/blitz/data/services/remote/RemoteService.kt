@@ -9,4 +9,6 @@ interface RemoteService {
     suspend fun getUserPhotos(username: String): List<PhotoDTO>
     suspend fun getPhotoStatistics(id: String): StatisticsDTO
     suspend fun getPhoto(id: String): PhotoDTO
+    suspend fun searchPhotos(search: String): List<PhotoDTO>
+    suspend fun searchUsers(search: String): List<UserDTO>
 }
