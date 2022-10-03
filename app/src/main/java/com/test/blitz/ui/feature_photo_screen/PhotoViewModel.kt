@@ -7,6 +7,7 @@ import com.test.blitz.core.mvi.BaseViewModel
 import com.test.blitz.core.mvi.Reducer
 import com.test.blitz.core.resource
 import com.test.blitz.di.IoDispatcher
+import com.test.blitz.domain.models.Photo
 import com.test.blitz.domain.use_cases.GetPhoto
 import com.test.blitz.domain.use_cases.GetPhotoStatistics
 import com.test.blitz.domain.use_cases.GetUserPhotos
@@ -99,6 +100,10 @@ class PhotoViewModel @Inject constructor(
         sendEvent(PhotoUiEvent.Error(null))
     }
 
+    fun showFullScreen(photo: Photo?) {
+        sendEvent(PhotoUiEvent.ShowFullScreen(photo))
+    }
+
     private class PhotoReducer(initial: PhotoUiState = PhotoUiState()) : Reducer<PhotoUiState, PhotoUiEvent>(initial) {
         override fun reduce(oldState: PhotoUiState, event: PhotoUiEvent) {
             setState(
@@ -136,6 +141,11 @@ class PhotoViewModel @Inject constructor(
                     is PhotoUiEvent.UserPhotos -> {
                         oldState.copy(
                             userPhotos = event.photos,
+                        )
+                    }
+                    is PhotoUiEvent.ShowFullScreen -> {
+                        oldState.copy(
+                            showPhotoFullScreen = event.photo,
                         )
                     }
                 }
