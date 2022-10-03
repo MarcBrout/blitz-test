@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.test.blitz.R
 import com.test.blitz.domain.models.Photo
 import com.test.blitz.ui.common.components.InfiniteAnimation
-import com.test.blitz.ui.common.components.PhotoGrid
+import com.test.blitz.ui.common.components.LazyPhotoGrid
 import com.test.blitz.ui.theme.Typography
 
 @Preview(
@@ -53,7 +53,7 @@ fun BoxScope.HomeScreen(
                 )
             }
             else -> {
-                PhotoGrid(
+                LazyPhotoGrid(
                     photos = state.photos,
                     onPhotoClick = navigateToUserPhotos
                 )

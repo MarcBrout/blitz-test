@@ -8,6 +8,7 @@ import com.test.blitz.domain.models.Statistics
 data class PhotoUiState(
     val photoLoading: Boolean = false,
     val photo: Photo? = null,
+    val showPhotoFullScreen: Boolean = false,
     val userPhotoLoading: Boolean = false,
     val userPhotos: List<Photo> = emptyList(),
     val statisticsLoading: Boolean = false,

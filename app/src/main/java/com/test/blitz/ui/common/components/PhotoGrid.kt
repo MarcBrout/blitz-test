@@ -3,7 +3,6 @@ package com.test.blitz.ui.common.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -17,13 +16,13 @@ import com.test.blitz.domain.models.Photo
 import com.test.blitz.domain.models.PhotoUrls
 
 @Composable
-fun PhotoGrid(
+fun LazyPhotoGrid(
+    modifier : Modifier = Modifier,
     photos: List<Photo>,
     onPhotoClick: (Photo) -> Unit,
 ) {
     LazyVerticalGrid(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier,
         columns = GridCells.Fixed(3),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.margin_small)),
         horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.margin_small)),
@@ -41,6 +40,8 @@ fun PhotoGrid(
 
     }
 }
+
+
 
 
 @Composable
