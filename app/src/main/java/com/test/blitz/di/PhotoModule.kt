@@ -3,14 +3,12 @@ package com.test.blitz.di
 import com.test.blitz.data.repositories.PhotoRepositoryImpl
 import com.test.blitz.data.services.remote.RemoteService
 import com.test.blitz.domain.repositories.PhotoRepository
-import com.test.blitz.domain.use_cases.GetPhotoStatistics
-import com.test.blitz.domain.use_cases.GetPhotoStatisticsImpl
-import com.test.blitz.domain.use_cases.GetPhotos
-import com.test.blitz.domain.use_cases.GetPhotosImpl
+import com.test.blitz.domain.use_cases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import retrofit2.http.POST
 import javax.inject.Singleton
 
 @Module
@@ -22,6 +20,14 @@ class PhotoModule {
         remoteService: RemoteService
     ): PhotoRepository {
         return PhotoRepositoryImpl(remoteService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetPhoto(
+        repository: PhotoRepository
+    ): GetPhoto {
+        return GetPhotoImpl(repository)
     }
 
     @Provides
@@ -38,5 +44,13 @@ class PhotoModule {
         repository: PhotoRepository
     ): GetPhotoStatistics {
         return GetPhotoStatisticsImpl(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetUserPhotos(
+        repository: PhotoRepository
+    ): GetUserPhotos {
+        return GetUserPhotosImpl(repository)
     }
 }

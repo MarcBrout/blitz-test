@@ -8,4 +8,5 @@ interface PhotoRepository {
     suspend fun getPhotos(): List<Photo>
     suspend fun getUserPhotos(id: String): List<Photo>
     suspend fun getPhotoStatistics(id: String): Statistics
+    suspend fun getPhoto(id: String): Photo
 }

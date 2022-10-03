@@ -10,4 +10,5 @@ fun PhotoDTO.toPhoto() = Photo(
     description = description,
     user = user.toUser(),
     urls = urls.toPhotoUrls(),
+    likes = likes,
 )

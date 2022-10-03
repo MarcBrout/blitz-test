@@ -9,4 +9,5 @@ data class PhotoDTO (
     @SerializedName("description") val description: String,
     @SerializedName("user") val user: UserDTO,
     @SerializedName("urls") val urls: UrlsDTO,
+    @SerializedName("likes") val likes: Int,
 )

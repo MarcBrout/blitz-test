@@ -7,6 +7,7 @@ data class Photo(
     val description: String?,
     val user: User,
     val urls: Map<PhotoUrls, String>,
+    val likes: Int,
 )
 
 enum class PhotoUrls {

@@ -8,13 +8,13 @@ import com.test.blitz.domain.repositories.PhotoRepository
 import javax.inject.Inject
 
 interface GetUserPhotos {
-    suspend operator fun invoke(id: String): Resource<List<Photo>>
+    suspend operator fun invoke(username: String): Resource<List<Photo>>
 }
 
 class GetUserPhotosImpl @Inject constructor(
     private val repository: PhotoRepository
 ): GetUserPhotos {
-    override suspend fun invoke(id: String): Resource<List<Photo>> = safeResource {
-        repository.getUserPhotos(id)
+    override suspend fun invoke(username: String): Resource<List<Photo>> = safeResource {
+        repository.getUserPhotos(username)
     }
 }

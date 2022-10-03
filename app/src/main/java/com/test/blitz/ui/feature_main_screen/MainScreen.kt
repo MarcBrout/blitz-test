@@ -1,5 +1,6 @@
 package com.test.blitz.ui.feature_main_screen
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -22,6 +24,8 @@ import com.test.blitz.ui.feature_home_screen.HomeScreen
 import com.test.blitz.R
 import com.test.blitz.ui.SearchScreen
 import com.test.blitz.ui.feature_home_screen.HomeViewModel
+import com.test.blitz.ui.feature_photo_screen.PhotoScreen
+import com.test.blitz.ui.feature_photo_screen.PhotoViewModel
 
 sealed class Screen(val route: String, @StringRes val resourceId: Int, val icon: ImageVector) {
     object Home : Screen("home", R.string.home, Icons.Rounded.Home)
@@ -80,18 +84,28 @@ fun MainScreen() {
                     HomeScreen(
                         state = state.value,
                         navigateToUserPhotos = { photo ->
-                            navController.navigate("photo/details/${photo.id}")
+                            navController.navigate("photo/${photo.id}")
                         }
                     )
                 }
 
-                navigation(startDestination = "details/{photoId}", route = "photo") {
-                    composable("details/{photoId}") {
-                        val photoId =
-                            navController.previousBackStackEntry?.arguments?.getString("photoId")
-                        if (photoId != null) {
+                composable("photo/{photoId}") {
+                    val photoId = it.arguments?.getString("photoId")
+                    if (photoId != null) {
+                        val photoViewModel = hiltViewModel<PhotoViewModel>()
+                        val state = photoViewModel.state.collectAsState()
 
-                        }
+                        PhotoScreen(
+                            state = state.value,
+                            onNavigateToPhoto = { photo ->
+                                navController.navigate("photo/${photo.id}") {
+                                    popUpTo(Screen.Home.route)
+                                }
+                            },
+                            onNavigateBack = {
+                                navController.popBackStack()
+                            }
+                        )
                     }
                 }
 
