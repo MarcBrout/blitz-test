@@ -92,10 +92,8 @@ fun MainScreen() {
 
                         PhotoScreen(
                             state = state.value,
-                            onNavigateToPhoto = { photo ->
-                                navController.navigate("photo/${photo.id}") {
-                                    popUpTo(Screen.Home.route)
-                                }
+                            onShowFullScreen = { photo ->
+                                navController.navigate("photo/${photo.id}")
                             },
                             onNavigateBack = {
                                 navController.popBackStack()
