@@ -9,5 +9,5 @@ data class SearchUiState(
     val query: String = "",
     val photos: List<Photo> = emptyList(),
     val users: List<User> = emptyList(),
-    val error: String? = null,
+    val error: Throwable? = null,
 ): UiState

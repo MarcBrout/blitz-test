@@ -95,6 +95,10 @@ class PhotoViewModel @Inject constructor(
         reducer.sendEvent(event)
     }
 
+    fun onDismissError() {
+        sendEvent(PhotoUiEvent.Error(null))
+    }
+
     private class PhotoReducer(initial: PhotoUiState = PhotoUiState()) : Reducer<PhotoUiState, PhotoUiEvent>(initial) {
         override fun reduce(oldState: PhotoUiState, event: PhotoUiEvent) {
             setState(

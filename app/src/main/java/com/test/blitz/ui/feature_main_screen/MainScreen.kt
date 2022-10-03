@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.*
+import com.test.blitz.ui.common.components.SimpleDialog
 import com.test.blitz.ui.feature_home_screen.HomeScreen
 import com.test.blitz.ui.feature_home_screen.HomeViewModel
 import com.test.blitz.ui.feature_photo_screen.PhotoScreen
@@ -76,6 +77,13 @@ fun MainScreen() {
                     val homeViewModel = hiltViewModel<HomeViewModel>()
                     val state = homeViewModel.state.collectAsState()
 
+                    val error = state.value.error
+                    if (error != null) {
+                        ShowError(error = error.localizedMessage ?: error.message, onDismiss = {
+                            homeViewModel.onDismissError()
+                        })
+                    }
+
                     HomeScreen(
                         state = state.value,
                         navigateToUserPhotos = { photo ->
@@ -89,6 +97,13 @@ fun MainScreen() {
                     if (photoId != null) {
                         val photoViewModel = hiltViewModel<PhotoViewModel>()
                         val state = photoViewModel.state.collectAsState()
+
+                        val error = state.value.error
+                        if (error != null) {
+                            ShowError(error = error.localizedMessage ?: error.message, onDismiss = {
+                                photoViewModel.onDismissError()
+                            })
+                        }
 
                         PhotoScreen(
                             state = state.value,
@@ -105,6 +120,13 @@ fun MainScreen() {
                 composable(Screen.Search.route) {
                     val searchViewModel = hiltViewModel<SearchViewModel>()
                     val state = searchViewModel.state.collectAsState()
+
+                    val error = state.value.error
+                    if (error != null) {
+                        ShowError(error = error.localizedMessage ?: error.message, onDismiss = {
+                            searchViewModel.onDismissError()
+                        })
+                    }
 
                     SearchScreen(
                         state = state.value,
@@ -131,4 +153,16 @@ fun WIPScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
         Text(modifier = Modifier.align(Alignment.Center), text = "Work in Progress")
     }
+}
+
+@Composable
+fun ShowError(
+    error: String?,
+    onDismiss: () -> Unit = {},
+) {
+    SimpleDialog(
+        text = error ?: "An error occurred",
+        showDismissButton = false,
+        onConfirm = onDismiss,
+    )
 }

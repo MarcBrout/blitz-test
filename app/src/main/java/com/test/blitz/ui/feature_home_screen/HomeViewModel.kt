@@ -54,6 +54,10 @@ class HomeViewModel @Inject constructor(
         reducer.sendEvent(event)
     }
 
+    fun onDismissError() {
+        reducer.sendEvent(HomeUiEvent.Error(null))
+    }
+
     private class HomeReducer(initial: HomeUiState) : Reducer<HomeUiState, HomeUiEvent>(initial) {
         override fun reduce(oldState: HomeUiState, event: HomeUiEvent) {
             setState(when (event) {
