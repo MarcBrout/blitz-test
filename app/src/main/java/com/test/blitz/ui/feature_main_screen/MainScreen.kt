@@ -1,5 +1,7 @@
 package com.test.blitz.ui.feature_main_screen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,10 +13,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.*
+import coil.compose.AsyncImage
+import com.test.blitz.domain.models.PhotoUrls
 import com.test.blitz.ui.common.components.SimpleDialog
 import com.test.blitz.ui.feature_home_screen.HomeScreen
 import com.test.blitz.ui.feature_home_screen.HomeViewModel
@@ -108,7 +114,7 @@ fun MainScreen() {
                         PhotoScreen(
                             state = state.value,
                             onShowFullScreen = { photo ->
-                                navController.navigate("photo/${photo.id}")
+                                photoViewModel.showFullScreen(photo)
                             },
                             onNavigateBack = {
                                 navController.popBackStack()
