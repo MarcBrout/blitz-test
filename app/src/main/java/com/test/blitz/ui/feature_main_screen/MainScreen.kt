@@ -15,11 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.*
 import com.test.blitz.ui.feature_home_screen.HomeScreen
 import com.test.blitz.R
 import com.test.blitz.ui.SearchScreen
@@ -69,18 +67,34 @@ fun MainScreen() {
             }
         }
     ) { paddingValues ->
-        Box(modifier = Modifier.padding(paddingValues)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
             NavHost(navController = navController, startDestination = Screen.Home.route) {
                 composable(Screen.Home.route) {
-                    val homeViewModel = viewModel<HomeViewModel>()
+                    val homeViewModel = hiltViewModel<HomeViewModel>()
                     val state = homeViewModel.state.collectAsState()
 
                     HomeScreen(
                         state = state.value,
                         navigateToUserPhotos = { photo ->
-                        navController.navigate("photo_details/${photo.id}")
+                            navController.navigate("photo/details/${photo.id}")
+                        }
+                    )
+                }
+
+                navigation(startDestination = "details/{photoId}", route = "photo") {
+                    composable("details/{photoId}") {
+                        val photoId =
+                            navController.previousBackStackEntry?.arguments?.getString("photoId")
+                        if (photoId != null) {
+
+                        }
                     }
-                ) }
+                }
+
                 composable(Screen.Search.route) { SearchScreen() }
                 composable(Screen.Add.route) { SearchScreen() }
                 composable(Screen.Favorites.route) { SearchScreen() }

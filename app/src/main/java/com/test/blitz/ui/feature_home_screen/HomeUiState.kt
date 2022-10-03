@@ -6,4 +6,5 @@ import com.test.blitz.domain.models.Photo
 data class HomeUiState(
     val isLoading: Boolean = false,
     val photos: List<Photo> = listOf(),
+    val error: Throwable? = null,
 ) : UiState
