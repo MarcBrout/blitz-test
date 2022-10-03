@@ -81,9 +81,7 @@ fun SearchScreen(
 
         if (state.users.isNotEmpty()) {
             item {
-                LazyRow(
-
-                ) {
+                LazyRow {
                     this@LazyRow.items(
                         items = state.users,
                         itemContent = { user ->
