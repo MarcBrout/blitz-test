@@ -26,17 +26,17 @@ class SearchViewModel @Inject constructor(
     override val state
         get() = reducer.state
 
-
     private var photoSearchJob: Job? = null
     private var userSearchJob: Job? = null
 
     fun search(search: String) {
+        sendEvent(SearchUiEvent.Search(search))
 
         photoSearchJob?.cancel()
         photoSearchJob = viewModelScope.launch(dispatcher) {
             delay(500)
-            if (!isActive) return@launch
-            sendEvent(SearchUiEvent.Search(search))
+            if (!isActive || search.isEmpty()) return@launch
+            sendEvent(SearchUiEvent.IsLoading(true))
             resource({ searchPhotos(search) }) {
                 onSuccess {
                     sendEvent(SearchUiEvent.PhotosResult(it))
@@ -51,8 +51,8 @@ class SearchViewModel @Inject constructor(
         userSearchJob?.cancel()
         userSearchJob = viewModelScope.launch(dispatcher) {
             delay(500)
-            if (!isActive) return@launch
-            sendEvent(SearchUiEvent.Search(search))
+            if (!isActive || search.isEmpty()) return@launch
+            sendEvent(SearchUiEvent.IsLoading(true))
             resource({ searchUsers(search) }) {
                 onSuccess {
                     sendEvent(SearchUiEvent.UsersResult(it))
@@ -75,7 +75,7 @@ class SearchViewModel @Inject constructor(
                 when (event) {
                     is SearchUiEvent.Search -> {
                         oldState.copy(
-                            isLoading = true
+                            query = event.query,
                         )
                     }
                     is SearchUiEvent.PhotosResult -> {
@@ -98,6 +98,11 @@ class SearchViewModel @Inject constructor(
                     }
                     is SearchUiEvent.Clear -> {
                         SearchUiState()
+                    }
+                    is SearchUiEvent.IsLoading -> {
+                        oldState.copy(
+                            isLoading = event.isLoading
+                        )
                     }
                 }
             )

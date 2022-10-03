@@ -12,10 +12,10 @@ class SearchRepositoryImpl @Inject constructor(
     private val remoteService: RemoteService,
 ): SearchRepository {
     override suspend fun searchPhotos(search: String): List<Photo> {
-        return remoteService.searchPhotos(search).map { it.toPhoto() }
+        return remoteService.searchPhotos(search).results.map { it.toPhoto() }
     }
 
     override suspend fun searchUsers(search: String): List<User> {
-        return remoteService.searchUsers(search).map { it.toUser() }
+        return remoteService.searchUsers(search).results.map { it.toUser() }
     }
 }
