@@ -6,6 +6,6 @@ import com.test.blitz.domain.models.User
 
 interface PhotoRepository {
     suspend fun getPhotos(): List<Photo>
-    suspend fun getUserPhotos(id: String): Pair<User, List<Photo>>
+    suspend fun getUserPhotos(id: String): List<Photo>
     suspend fun getPhotoStatistics(id: String): Statistics
 }
