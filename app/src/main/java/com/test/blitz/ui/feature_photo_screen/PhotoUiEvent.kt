@@ -12,4 +12,6 @@ sealed class PhotoUiEvent : UiEvent {
     class UserPhotos(val photos: List<Photo>) : PhotoUiEvent()
     class PhotoStatisticsLoading(val isLoading: Boolean) : PhotoUiEvent()
     class PhotoStatistics(val statistics: Statistics) : PhotoUiEvent()
+    class ShowFullScreen(val photo: Photo?) : PhotoUiEvent()
+
 }

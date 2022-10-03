@@ -1,5 +1,6 @@
 package com.test.blitz.ui.feature_photo_screen
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -40,9 +41,10 @@ import java.util.*
 @Composable
 fun PhotoScreen(
     state: PhotoUiState = PhotoUiState(),
-    onShowFullScreen: (Photo) -> Unit = {},
+    onShowFullScreen: (Photo?) -> Unit = {},
     onNavigateBack: () -> Unit = {},
 ) {
+
     Column {
         IconButton(onClick = onNavigateBack) {
             Icon(
@@ -186,6 +188,19 @@ fun PhotoScreen(
         }
     }
 
+    AnimatedVisibility(visible = state.showPhotoFullScreen != null) {
+        if (state.showPhotoFullScreen != null) {
+            AsyncImage(
+                model = state.showPhotoFullScreen.urls[PhotoUrls.Full],
+                contentDescription = null,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black)
+                    .clickable { onShowFullScreen(null) },
+            )
+        }
+    }
 }
 
 @Composable
