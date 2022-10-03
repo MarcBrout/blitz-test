@@ -69,6 +69,10 @@ class SearchViewModel @Inject constructor(
         reducer.sendEvent(event)
     }
 
+    fun onDismissError() {
+        sendEvent(SearchUiEvent.Error(null))
+    }
+
     private class SearchReducer(initial: SearchUiState = SearchUiState()) : Reducer<SearchUiState, SearchUiEvent>(initial) {
         override fun reduce(oldState: SearchUiState, event: SearchUiEvent) {
             setState(
@@ -93,7 +97,7 @@ class SearchViewModel @Inject constructor(
                     is SearchUiEvent.Error -> {
                         oldState.copy(
                             isLoading = false,
-                            error = event.e.message
+                            error = event.e,
                         )
                     }
                     is SearchUiEvent.Clear -> {
