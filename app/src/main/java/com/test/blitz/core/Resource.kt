@@ -1,11 +1,11 @@
 package com.test.blitz.core
 
 /**
- * Resource used containing either a [Success] with a set data or an [Error] with a set [Exception]
+ * Resource used containing either a [Success] with a set data or an [Error] with a set [Throwable]
  */
 sealed class Resource<T> {
     class Success<T>(val data: T) : Resource<T>()
-    class Error<T>(val exception: Exception) : Resource<T>()
+    class Error<T>(val Throwable: Throwable) : Resource<T>()
 }
 
 /**
@@ -42,19 +42,19 @@ suspend fun <T>resource(request: suspend () -> Resource<T>, block: ResourceScope
  */
 interface ResourceScope<T> {
     fun onSuccess(listener: suspend (T) -> Unit)
-    fun onError(listener: suspend (Exception) -> Unit)
+    fun onError(listener: suspend (Throwable) -> Unit)
     fun onComplete(listener: suspend () -> Unit)
 }
 
 private class ResourceScopeImpl<T>(val run: suspend () -> Resource<T>): ResourceScope<T> {
     private var onSuccessListener: (suspend (T) -> Unit)? = null
-    private var onErrorListener: (suspend (Exception) -> Unit)? = null
+    private var onErrorListener: (suspend (Throwable) -> Unit)? = null
     private var onCompleteListener: (suspend () -> Unit)? = null
 
     override fun onSuccess(listener: suspend (T) -> Unit) {
         onSuccessListener = listener
     }
-    override fun onError(listener: suspend (Exception) -> Unit) {
+    override fun onError(listener: suspend (Throwable) -> Unit) {
         onErrorListener = listener
     }
 
@@ -64,7 +64,7 @@ private class ResourceScopeImpl<T>(val run: suspend () -> Resource<T>): Resource
 
     suspend fun request() {
         when (val res = run()) {
-            is Resource.Error -> { onErrorListener?.invoke(res.exception) }
+            is Resource.Error -> { onErrorListener?.invoke(res.Throwable) }
             is Resource.Success -> { onSuccessListener?.invoke(res.data) }
         }
         onCompleteListener?.invoke()
