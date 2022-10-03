@@ -5,4 +5,11 @@ data class User(
     val username: String,
     val name: String,
     val bio: String?,
+    val profileImage: Map<ProfileImageSize, String>,
 )
+
+enum class ProfileImageSize {
+    Small,
+    Medium,
+    Large,
+}
