@@ -1,6 +1,7 @@
 package com.test.blitz.di
 
 import com.test.blitz.data.repositories.PhotoRepositoryImpl
+import com.test.blitz.data.services.remote.RemoteService
 import com.test.blitz.domain.repositories.PhotoRepository
 import com.test.blitz.domain.use_cases.GetPhotoStatistics
 import com.test.blitz.domain.use_cases.GetPhotoStatisticsImpl
@@ -17,8 +18,10 @@ import javax.inject.Singleton
 class PhotoModule {
     @Provides
     @Singleton
-    fun providePhotoRepository(): PhotoRepository {
-        return PhotoRepositoryImpl()
+    fun providePhotoRepository(
+        remoteService: RemoteService
+    ): PhotoRepository {
+        return PhotoRepositoryImpl(remoteService)
     }
 
     @Provides
