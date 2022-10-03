@@ -11,7 +11,7 @@ interface RetrofitService : RemoteService {
     override suspend fun getPhotos(): List<PhotoDTO>
 
     @GET("users/{id}/photos")
-    override suspend fun getUserPhotos(id: String): Pair<UserDTO, List<PhotoDTO>>
+    override suspend fun getUserPhotos(id: String): List<PhotoDTO>
 
     @GET("photos/{id}/statistics")
     override suspend fun getPhotoStatistics(id: String): StatisticsDTO
