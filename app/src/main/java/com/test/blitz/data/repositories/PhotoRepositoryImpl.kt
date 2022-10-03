@@ -11,12 +11,16 @@ import javax.inject.Inject
 class PhotoRepositoryImpl @Inject constructor(
     private val remoteService: RemoteService
 ): PhotoRepository {
+    override suspend fun getPhoto(id: String): Photo {
+        return remoteService.getPhoto(id).toPhoto()
+    }
+
     override suspend fun getPhotos(): List<Photo> {
         return remoteService.getPhotos().map { it.toPhoto() }
     }
 
-    override suspend fun getUserPhotos(id: String): List<Photo> {
-        return remoteService.getUserPhotos(id).map { it.toPhoto() }
+    override suspend fun getUserPhotos(username: String): List<Photo> {
+        return remoteService.getUserPhotos(username).map { it.toPhoto() }
     }
 
     override suspend fun getPhotoStatistics(id: String): Statistics {
