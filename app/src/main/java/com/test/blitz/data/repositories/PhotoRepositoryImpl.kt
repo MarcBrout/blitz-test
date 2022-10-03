@@ -11,7 +11,7 @@ class PhotoRepositoryImpl @Inject constructor(
     private val remoteService: RemoteService
 ): PhotoRepository {
     override suspend fun getPhotos(): List<Photo> {
-        TODO("Not yet implemented
+        TODO("Not yet implemented")
     }
 
     override suspend fun getUserPhotos(id: String): Pair<User, List<Photo>> {

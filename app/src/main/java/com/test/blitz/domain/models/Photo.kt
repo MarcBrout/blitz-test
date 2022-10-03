@@ -5,13 +5,14 @@ data class Photo(
     val createdAt: String,
     val updatedAt: String,
     val description: String,
-    val urls: List<PhotoUrls>,
+    val user: User,
+    val urls: Map<PhotoUrls, String>,
 )
 
-sealed class PhotoUrls {
-    data class Regular(val url: String) : PhotoUrls()
-    data class Small(val url: String) : PhotoUrls()
-    data class Thumb(val url: String) : PhotoUrls()
-    data class Full(val url: String) : PhotoUrls()
-    data class Raw(val url: String) : PhotoUrls()
+enum class PhotoUrls {
+    Regular,
+    Small,
+    Thumb,
+    Full,
+    Raw,
 }
